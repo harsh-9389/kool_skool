@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "hbs": "^4.2.0",
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "wep",
+  "version": "1.0.0",
+  "description": "sms project",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harsh-9389/wep.git"
+  },
+  "author": "vasant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harsh-9389/wep/issues"
+  },
+  "homepage": "https://github.com/harsh-9389/wep#readme"
+}
