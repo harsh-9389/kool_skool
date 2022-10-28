@@ -12,6 +12,16 @@ const initializePassport = require("./passport-config")
 const flash = require("express-flash")
 const session = require("express-session")
 const methodOverride = require("method-override")
+const dbConnect = require('./mongodb');
+
+const insert = async ()=>{
+    const db = await dbConnect();
+    const result = await db.insert(users)
+
+    if(result.acknowledged){
+        console.log("data inserted")
+    }
+}
 
 initializePassport(
     passport,
@@ -27,7 +37,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false, // We wont resave the session variable if nothing is changed
+    resave: false, //  wont resave the session variable if nothing is changed
     saveUninitialized: false
 }))
 app.use(passport.initialize()) 
@@ -52,7 +62,9 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
         })
+        //***********here database is to be connected************
         console.log(users); // Display newly registered in the console
+        insert();
         res.redirect("/login")
         
     } catch (e) {
@@ -60,6 +72,8 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         res.redirect("/register")
     }
 })
+
+
 
 // Routes
 app.get('/', checkAuthenticated, (req, res) => {
