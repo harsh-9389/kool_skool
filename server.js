@@ -13,15 +13,26 @@ const flash = require("express-flash")
 const session = require("express-session")
 const methodOverride = require("method-override")
 const dbConnect = require('./mongodb');
+//const dbConnect2 = require('./mongodb2'); ***no need as type will separate students and teachers***
+//var t;
+//***function to insert users list in database***
+const insertMany = async ()=>{
+    
+   
+        const db = await dbConnect();
+        const result = await db.insertMany(users)
+        if(result.acknowledged){
+            console.log("data inserted")
+        }
+    
+    //const db = await dbConnect();
+    //const result = await db.insertMany(users)
 
-const insert = async ()=>{
-    const db = await dbConnect();
-    const result = await db.insert(users)
-
-    if(result.acknowledged){
+    /*if(result.acknowledged){
         console.log("data inserted")
-    }
+    }*/
 }
+
 
 initializePassport(
     passport,
@@ -61,10 +72,14 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
+            type: req.body.sub,
         })
+        //t = req.body.radio;
+        insertMany()
+        //bulk.append(users.copy())
         //***********here database is to be connected************
         console.log(users); // Display newly registered in the console
-        insert();
+       // insert();
         res.redirect("/login")
         
     } catch (e) {
@@ -73,7 +88,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
     }
 })
 
-
+//app.set('view engine', 'ejs')
 
 // Routes
 app.get('/', checkAuthenticated, (req, res) => {
@@ -87,6 +102,22 @@ app.get('/login', checkNotAuthenticated, (req, res) => {
 app.get('/register', checkNotAuthenticated, (req, res) => {
     res.render("register.ejs")
 })
+
+app.get('/headmaster', (req, res) => {
+    res.render('headmaster.ejs')
+})
+
+app.get('/index_head', (req, res) => {
+    res.render('index_head.ejs')
+})
+
+app.get('/student', (req, res) => {
+    res.render('student.ejs')
+})
+
+app.get('/teacher', (req, res) => {
+    res.render('teacher.ejs')
+})
 // End Routes
 
 // app.delete('/logout', (req, res) => {
@@ -99,6 +130,7 @@ app.delete("/logout", (req, res) => {
         if (err) return next(err)
         res.redirect("/")
     })
+    //bulk.append(users.copy())
 })
 
 function checkAuthenticated(req, res, next){
@@ -114,5 +146,7 @@ function checkNotAuthenticated(req, res, next){
     }
     next()
 }
+
+
 
 app.listen(3000)
