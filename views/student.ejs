@@ -74,7 +74,7 @@
 
               <div class="card bg-glass">
                 <div class="card-body px-4 py-5 px-md-5">
-                  <form action="/headmaster" method="POST">
+                  <form action="/student" method="POST">
                     <!-- 2 column grid layout with text inputs for the first and last names -->
                     <div class="row">
                       <% if (messages.error) { %>
@@ -101,20 +101,20 @@
 
                     <!--*****************radio buttons for students******************-->
                     <label for="cars">Class</label>
-                    <select name="cars" id="cars">
-                      <option value="volvo">Class-1</option>
-                      <option value="saab">Class-2</option>
-                      <option value="opel">Class-3</option>
-                      <option value="audi">Class-4</option>
+                    <select name="car" id="cars">
+                      <option value="Class-1" name="skar">Class-1</option>
+                      <option value="Class-2" name="skar">Class-2</option>
+                      <option value="Class-3" name="skar">Class-3</option>
+                      <option value="Class-4" name="skar">Class-4</option>
                     </select>
                     <br /><br />
 
                     <!--*************radio buttons for sectioning students**************-->
                     <label for="cars">Section</label>
                     <select name="cars" id="cars">
-                      <option value="volvo">Sec A</option>
-                      <option value="saab">Sec B</option>
-                      <option value="opel">Sec C</option>
+                      <option value="Sec A" name="metro">Sec A</option>
+                      <option value="Sec B" name="metro">Sec B</option>
+                      <option value="Sec C" name="metro">Sec C</option>
                     </select>
 
                     <br /><br />
@@ -124,7 +124,8 @@
                       type="submit"
                       class="btn btn-primary btn-block mb-4"
                     >
-                      Submit
+                    Submit
+                    <!--<a href="/save" style="color: white; text-decoration: none;">Submit</a>-->
                     </button>
                   </form>
                 </div>

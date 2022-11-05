@@ -13,6 +13,8 @@ const flash = require("express-flash")
 const session = require("express-session")
 const methodOverride = require("method-override")
 const dbConnect = require('./mongodb');
+const dbConnect2 = require("./mongodb2")
+const dbConnect3 = require("./mongodb3")
 //const dbConnect2 = require('./mongodb2'); ***no need as type will separate students and teachers***
 //var t;
 //***function to insert users list in database***
@@ -20,10 +22,13 @@ const insertMany = async ()=>{
     
    
         const db = await dbConnect();
+        
         const result = await db.insertMany(users)
+     
         if(result.acknowledged){
             console.log("data inserted")
         }
+        
     
     //const db = await dbConnect();
     //const result = await db.insertMany(users)
@@ -33,6 +38,38 @@ const insertMany = async ()=>{
     }*/
 }
 
+//**********database for student connected*************
+const insert = async ()=>{
+    
+   
+    const db = await dbConnect2();
+    
+    const result = await db.insertMany(stu)
+ 
+    if(result.acknowledged){
+        console.log("data inserted")
+    }
+    
+
+//const db = await dbConnect();
+//const result = await db.insertMany(users)
+
+/*if(result.acknowledged){
+    console.log("data inserted")
+}*/
+}
+
+//***********databse for teacher connected*************
+const insert2 = async ()=>{
+
+    const db = await dbConnect3();
+
+    const result = await db.insertMany(tea)
+
+    if(result.acknowledged){
+        console.log("data inserted")
+    }
+}
 
 initializePassport(
     passport,
@@ -88,6 +125,47 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
     }
 })
 
+//configuring the student post functionality
+const stu = []
+app.post("/student", async (req, res) => {
+
+    try {
+        stu.push({
+            id: Date.now().toString(), 
+            name: req.body.name,
+            class: req.body.car,
+            section: req.body.cars,
+        })
+        insert()
+        //***********here database is to be connected************
+        console.log(stu); // Display newly registered in the console
+        res.redirect("/save")
+    } catch (e) {
+        console.log(e);
+    }
+})
+
+//configuring the teacher post functionality
+const tea = []
+app.post("/teacher", async (req, res) => {
+
+    try {
+        tea.push({
+            id: Date.now().toString(),
+            name: req.body.name,
+            class: req.body.amber,
+            section: req.body.skar,
+        })
+        insert2()
+
+        console.log(tea);
+        res.redirect("/save")
+    }
+    catch (e) {
+        console.log(e);
+    }
+})
+
 //app.set('view engine', 'ejs')
 
 // Routes
@@ -117,6 +195,11 @@ app.get('/student', (req, res) => {
 
 app.get('/teacher', (req, res) => {
     res.render('teacher.ejs')
+    
+})
+
+app.get('/save', (req, res) => {
+    res.render('save.ejs')
 })
 // End Routes
 
@@ -146,7 +229,6 @@ function checkNotAuthenticated(req, res, next){
     }
     next()
 }
-
 
 
 app.listen(3000)
