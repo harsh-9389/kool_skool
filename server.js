@@ -180,14 +180,57 @@ app.set('view engine', 'ejs')
 //var url = 'mongodb://localhost:27017/headmasterstudents';
 let MongoClient = require('mongodb').MongoClient;
 var db;
+var db2;
 MongoClient.connect('mongodb://localhost:27017', function (err, client) {
   if (err) throw err;
   db = client.db('headmasterstudents');
   //app.listen(3000);
 });
 
+MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+  if (err) throw err;
+  db2 = client.db('headmasterteacher');
+  //app.listen(3000);
+});
+
 // Routes
+
 app.get('/', checkAuthenticated, (req, res) => {
+
+    /* var resultArray = [];
+     MongoClient.connect(url, function(err, db) {
+     assert.equal(null, err);
+     //const db = firebase.firestore();
+     var cursor = db.collection('data2').find();
+     cursor.forEach(function(doc, err) {
+         assert.equal(null, err);
+         resultArray.push(doc);
+     }, function() {
+         db.close();
+         const items = [];
+         for(var i=0;i<resultArray.length;i++)
+         {
+             if(req.user.name == resultArray[i].name)
+             {
+                 res.render("index.ejs", {items: resultArray[i]});
+                 break;
+             }
+         }
+         //res.render("index.ejs", {})
+     })
+     })*/
+ 
+     res.render("index.ejs", {name: req.user.name})
+ 
+ 
+   //  db.collection('data3')
+     //.find()
+     //.toArray(function (err, result1) {
+      // if (err) throw err;
+       //res.render('index', {result1: result1});
+     //});
+ })
+app.get('/student', (req, res) => {
 
    /* var resultArray = [];
     MongoClient.connect(url, function(err, db) {
@@ -222,9 +265,62 @@ app.get('/', checkAuthenticated, (req, res) => {
     .find()
     .toArray(function (err, result) {
       if (err) throw err;
-      res.render('index', {result: result});
+      res.render('studentSchedule', {result: result});
     });
+
+  //  db.collection('data3')
+    //.find()
+    //.toArray(function (err, result1) {
+     // if (err) throw err;
+      //res.render('index', {result1: result1});
+    //});
 })
+
+app.get('/teacher', (req, res) => {
+
+    /* var resultArray = [];
+     MongoClient.connect(url, function(err, db) {
+     assert.equal(null, err);
+     //const db = firebase.firestore();
+     var cursor = db.collection('data2').find();
+     cursor.forEach(function(doc, err) {
+         assert.equal(null, err);
+         resultArray.push(doc);
+     }, function() {
+         db.close();
+         const items = [];
+         for(var i=0;i<resultArray.length;i++)
+         {
+             if(req.user.name == resultArray[i].name)
+             {
+                 res.render("index.ejs", {items: resultArray[i]});
+                 break;
+             }
+         }
+         //res.render("index.ejs", {})
+     })
+     })*/
+ 
+     //res.render("index.ejs", 
+     //{name: req.user.name,
+         
+     //})
+ 
+ 
+     db2.collection('data3')
+     .find()
+     .toArray(function (err, DATA) {
+       if (err) throw err;
+       res.render('teacherSchedule', {DATA: DATA});
+     });
+ 
+   //  db.collection('data3')
+     //.find()
+     //.toArray(function (err, result1) {
+      // if (err) throw err;
+       //res.render('index', {result1: result1});
+     //});
+ })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render("login.ejs")

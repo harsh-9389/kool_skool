@@ -156,9 +156,27 @@
         <br />
         <!--**********data fetching**********-->
 
-      <a href="/teacher"><H2>TEACHERS SCHEDULE</H2></a>
-      <BR />
-      <a href="/student"><H2>STUDENTS SCHEDULE</H2></a>
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Serial No.</th>
+            <th scope="col">NAME</th>
+            <th scope="col">CLASS</th>
+            <th scope="col">SECTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% DATA.forEach(function(entry) { %>
+          <tr>
+            <th scope="row"><%= entry.id %></th>
+            <td><%= entry.name %></td>
+            <td><%= entry.class %></td>
+            <td><%= entry.section %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
         <p class="lead">
           <!--table for students-->
         </p>
