@@ -5,6 +5,11 @@ if (process.env.NODE_ENV !== "production") {
 
 // Importing Libraies that we installed using npm
 const express = require("express")
+//var MongoClient = require('mongodb').MongoClient;
+const assert = require("assert")
+const bodyParser = require("body-parser")
+const ejs = require("ejs")
+const _ = require("lodash")
 const app = express()
 const bcrypt = require("bcrypt") // Importing bcrypt package
 const passport = require("passport")
@@ -15,6 +20,7 @@ const methodOverride = require("method-override")
 const dbConnect = require('./mongodb');
 const dbConnect2 = require("./mongodb2")
 const dbConnect3 = require("./mongodb3")
+const mongoose = require("mongoose")
 //const dbConnect2 = require('./mongodb2'); ***no need as type will separate students and teachers***
 //var t;
 //***function to insert users list in database***
@@ -113,6 +119,7 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
         })
         //t = req.body.radio;
         insertMany()
+
         //bulk.append(users.copy())
         //***********here database is to be connected************
         console.log(users); // Display newly registered in the console
@@ -137,9 +144,12 @@ app.post("/student", async (req, res) => {
             section: req.body.cars,
         })
         insert()
+
         //***********here database is to be connected************
         console.log(stu); // Display newly registered in the console
         res.redirect("/save")
+
+
     } catch (e) {
         console.log(e);
     }
@@ -166,11 +176,54 @@ app.post("/teacher", async (req, res) => {
     }
 })
 
-//app.set('view engine', 'ejs')
+app.set('view engine', 'ejs')
+//var url = 'mongodb://localhost:27017/headmasterstudents';
+let MongoClient = require('mongodb').MongoClient;
+var db;
+MongoClient.connect('mongodb://localhost:27017', function (err, client) {
+  if (err) throw err;
+  db = client.db('headmasterstudents');
+  //app.listen(3000);
+});
 
 // Routes
 app.get('/', checkAuthenticated, (req, res) => {
-    res.render("index.ejs", {name: req.user.name})
+
+   /* var resultArray = [];
+    MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    //const db = firebase.firestore();
+    var cursor = db.collection('data2').find();
+    cursor.forEach(function(doc, err) {
+        assert.equal(null, err);
+        resultArray.push(doc);
+    }, function() {
+        db.close();
+        const items = [];
+        for(var i=0;i<resultArray.length;i++)
+        {
+            if(req.user.name == resultArray[i].name)
+            {
+                res.render("index.ejs", {items: resultArray[i]});
+                break;
+            }
+        }
+        //res.render("index.ejs", {})
+    })
+    })*/
+
+    //res.render("index.ejs", 
+    //{name: req.user.name,
+        
+    //})
+
+
+    db.collection('data2')
+    .find()
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.render('index', {result: result});
+    });
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -229,6 +282,40 @@ function checkNotAuthenticated(req, res, next){
     }
     next()
 }
+
+//fetching data from database
+
+/*app.set('view engine', 'ejs')
+
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.static("public"))
+
+mongoose.connect("mongodb://localhost:27017/student", {useNewUrlParser: true})
+
+const postSchema = {
+    name: String,
+    email: String
+}
+
+const Post = mongoose.model("Post", postSchema)
+
+app.get("/", function(req, res){
+    //const requestedTitle = _.lowerCase(req.params.postName);
+  
+    users.forEach(function(users){
+     // const storedTitle = _.lowerCase(post.title);
+  
+      
+        res.render("index", {
+          name: users.name,
+          class: users.class
+        });
+      
+    });
+  
+  });*/
+
+
 
 
 app.listen(3000)
