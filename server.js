@@ -197,38 +197,12 @@ MongoClient.connect('mongodb://localhost:27017', function (err, client) {
 
 app.get('/', checkAuthenticated, (req, res) => {
 
-    /* var resultArray = [];
-     MongoClient.connect(url, function(err, db) {
-     assert.equal(null, err);
-     //const db = firebase.firestore();
-     var cursor = db.collection('data2').find();
-     cursor.forEach(function(doc, err) {
-         assert.equal(null, err);
-         resultArray.push(doc);
-     }, function() {
-         db.close();
-         const items = [];
-         for(var i=0;i<resultArray.length;i++)
-         {
-             if(req.user.name == resultArray[i].name)
-             {
-                 res.render("index.ejs", {items: resultArray[i]});
-                 break;
-             }
-         }
-         //res.render("index.ejs", {})
-     })
-     })*/
+    
  
-     res.render("index.ejs", {name: req.user.name})
+     res.render("index.ejs")
  
  
-   //  db.collection('data3')
-     //.find()
-     //.toArray(function (err, result1) {
-      // if (err) throw err;
-       //res.render('index', {result1: result1});
-     //});
+  
  })
 app.get('/student', (req, res) => {
 
@@ -338,17 +312,21 @@ app.get('/index_head', (req, res) => {
     res.render('index_head.ejs')
 })
 
-app.get('/student', (req, res) => {
+app.get('/students', (req, res) => {
     res.render('student.ejs')
 })
 
-app.get('/teacher', (req, res) => {
+app.get('/teachers', (req, res) => {
     res.render('teacher.ejs')
     
 })
 
 app.get('/save', (req, res) => {
     res.render('save.ejs')
+})
+
+app.get('/home', (req, res) => {
+    res.render('home.ejs')
 })
 // End Routes
 
