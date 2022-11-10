@@ -1,0 +1,104 @@
+/* body{
+    background-color: rgba(255, 0, 102, 0.869);
+    background-image: url("font.jpg");
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: 50%;
+   
+   
+} */
+h1{
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+}
+.navbar li{
+    float: right;
+    position: relative;
+    margin: 10px;
+    margin-bottom: 50%;
+    margin-left: 7.5%;
+    
+    /* color: rgba(255, 255, 255, 0.773); */
+    text-decoration: none;
+    color: aliceblue;
+    font-family:cursive;
+
+    
+}
+.head{
+   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-size: larger;
+    
+}
+h1{
+    margin-left: 5%;
+}
+
+.sidebox{
+   /* border: 2px solid rgba(6, 97, 154, 0.429);*/
+    color: white;
+    /*position: sticky;*/
+   font-size: 200%;
+    border-radius: 0.25cm;
+    width: 40vw;
+    height: 50vh;
+    margin-left: 5%;
+    margin-top: 9%;
+    
+}
+a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+
+
+
+
+.login{
+  
+    /* background-color: black; */
+    border-style: groove;
+    color: gray;
+    padding: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 10%;
+    border-radius: 5px;
+    font-size: 110%;
+    background-color: skyblue;
+    margin-bottom: 20%;
+    
+}
+.Signup{
+    background-color: skyblue;
+    /* border-radius: 2px; */
+    border:solid;
+    border-style: groove;
+    border-color:white;
+    /* height: 200px; */
+    font-size: 110%;
+    color: gray;
+    padding: 2px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    margin-left: 10%;
+}
+.login:hover{
+    cursor: pointer;
+    background-color: whitesmoke;
+    color: skyblue;
+}
+.Signup:hover{
+    cursor: pointer;
+    background-color: whitesmoke;
+    color: skyblue;
+}
+body{
+    background-repeat: no-repeat;
+    background-size:cover;
+    height: auto;
+}
