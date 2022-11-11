@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express")
 //var MongoClient = require('mongodb').MongoClient;
 const assert = require("assert")
-const bodyParser = require("body-parser")
+//const bodyParser = require("body-parser")
 const ejs = require("ejs")
 const _ = require("lodash")
 const app = express()
@@ -20,7 +20,6 @@ const methodOverride = require("method-override")
 const dbConnect = require('./mongodb');
 const dbConnect2 = require("./mongodb2")
 const dbConnect3 = require("./mongodb3")
-const mongoose = require("mongoose")
 //const dbConnect2 = require('./mongodb2'); ***no need as type will separate students and teachers***
 //var t;
 //***function to insert users list in database***
@@ -199,41 +198,14 @@ app.get('/', checkAuthenticated, (req, res) => {
 
     
  
-     res.render("index.ejs")
+     res.render("index.ejs", {name: req.user.name})
  
  
   
  })
 app.get('/student', (req, res) => {
 
-   /* var resultArray = [];
-    MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    //const db = firebase.firestore();
-    var cursor = db.collection('data2').find();
-    cursor.forEach(function(doc, err) {
-        assert.equal(null, err);
-        resultArray.push(doc);
-    }, function() {
-        db.close();
-        const items = [];
-        for(var i=0;i<resultArray.length;i++)
-        {
-            if(req.user.name == resultArray[i].name)
-            {
-                res.render("index.ejs", {items: resultArray[i]});
-                break;
-            }
-        }
-        //res.render("index.ejs", {})
-    })
-    })*/
-
-    //res.render("index.ejs", 
-    //{name: req.user.name,
-        
-    //})
-
+   
 
     db.collection('data2')
     .find()
@@ -242,43 +214,12 @@ app.get('/student', (req, res) => {
       res.render('studentSchedule', {result: result});
     });
 
-  //  db.collection('data3')
-    //.find()
-    //.toArray(function (err, result1) {
-     // if (err) throw err;
-      //res.render('index', {result1: result1});
-    //});
+  
 })
 
 app.get('/teacher', (req, res) => {
 
-    /* var resultArray = [];
-     MongoClient.connect(url, function(err, db) {
-     assert.equal(null, err);
-     //const db = firebase.firestore();
-     var cursor = db.collection('data2').find();
-     cursor.forEach(function(doc, err) {
-         assert.equal(null, err);
-         resultArray.push(doc);
-     }, function() {
-         db.close();
-         const items = [];
-         for(var i=0;i<resultArray.length;i++)
-         {
-             if(req.user.name == resultArray[i].name)
-             {
-                 res.render("index.ejs", {items: resultArray[i]});
-                 break;
-             }
-         }
-         //res.render("index.ejs", {})
-     })
-     })*/
- 
-     //res.render("index.ejs", 
-     //{name: req.user.name,
-         
-     //})
+    
  
  
      db2.collection('data3')
@@ -288,12 +229,6 @@ app.get('/teacher', (req, res) => {
        res.render('teacherSchedule', {DATA: DATA});
      });
  
-   //  db.collection('data3')
-     //.find()
-     //.toArray(function (err, result1) {
-      // if (err) throw err;
-       //res.render('index', {result1: result1});
-     //});
  })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -357,37 +292,6 @@ function checkNotAuthenticated(req, res, next){
     next()
 }
 
-//fetching data from database
-
-/*app.set('view engine', 'ejs')
-
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(express.static("public"))
-
-mongoose.connect("mongodb://localhost:27017/student", {useNewUrlParser: true})
-
-const postSchema = {
-    name: String,
-    email: String
-}
-
-const Post = mongoose.model("Post", postSchema)
-
-app.get("/", function(req, res){
-    //const requestedTitle = _.lowerCase(req.params.postName);
-  
-    users.forEach(function(users){
-     // const storedTitle = _.lowerCase(post.title);
-  
-      
-        res.render("index", {
-          name: users.name,
-          class: users.class
-        });
-      
-    });
-  
-  });*/
 
 
 
