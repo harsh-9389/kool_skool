@@ -4,7 +4,7 @@
 This project is about SCHOOL MANAGEMENT SYSTEM (SMS) in which we have tried to build a management system for school such as to assign classe to teachers and students and registering students in the school web portal.
 
 
-![Logo](https://github.com/harsh-9389/wep/blob/master/views/brand.jpg?raw=true)
+![Logo](https://github.com/harsh-9389/wep/blob/master/views/INNOVATORS.jpg)
 
 
 ## Running Tests
@@ -19,11 +19,6 @@ To run tests, run the following command
 ## Demo
 
 Insert gif or link to demo
-
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
 ## Tech Stack
